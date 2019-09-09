@@ -6,7 +6,16 @@ namespace BankingSystem
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to the Bank");
+            LoginPage loginObject = new LoginPage();
+            loginObject.Login();
+            while (!loginObject.loginCheck)
+            {
+                Console.Clear();
+                loginObject.Login();
+            }
+
+            Console.Clear();
+            Console.WriteLine("Process");
         }
     }
 }

@@ -5,7 +5,12 @@ namespace BankingSystem
 {
     public class LoginPage
     {
-        public bool loginCheck = false;
+        private bool loginCheck;
+
+        public LoginPage()
+        {
+            loginCheck = false;
+        }
 
         public void Login()
         { 
@@ -15,7 +20,7 @@ namespace BankingSystem
             //design for console UI
 
             Console.WriteLine("\t\t __________________________________________________");
-            Console.WriteLine("\t\t|           WELCOME TO SIMPLE BANKING SYSTEM       |");
+            Console.WriteLine("\t\t╔           WELCOME TO SIMPLE BANKING SYSTEM       |");
             Console.WriteLine("\t\t|__________________________________________________|");
 
             Console.WriteLine("\t\t|             LOGIN TO START                       |");
@@ -82,6 +87,7 @@ namespace BankingSystem
                         Console.WriteLine("\nValid Credentails!... Login Successsful.Please enter");
                         Console.ReadKey();
                         loginCheck = true;
+                        break;
                     }     
                 }
                 if(loginCheck==false)
@@ -97,8 +103,22 @@ namespace BankingSystem
                 // Display the error message
                 Console.WriteLine("File not found");
             }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         
          }
+
+        public void ExecuteLoginPage()
+        {
+            do
+            {
+                Console.Clear();
+                Login();
+            } while (!loginCheck);
+
+        }
        
     }
 }

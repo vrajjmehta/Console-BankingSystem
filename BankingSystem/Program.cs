@@ -6,16 +6,19 @@ namespace BankingSystem
     {
         static void Main(string[] args)
         {
+            //login
             LoginPage loginObject = new LoginPage();
-            loginObject.Login();
-            while (!loginObject.loginCheck)
-            {
-                Console.Clear();
-                loginObject.Login();
-            }
+            loginObject.ExecuteLoginPage();
 
             Console.Clear();
-            Console.WriteLine("Process");
+
+            //if login successful
+            //Display the main menu with choices
+            MainMenu menuObject = new MainMenu();
+            menuObject.ExecuteMainMenu();
+
+
+
         }
     }
 }

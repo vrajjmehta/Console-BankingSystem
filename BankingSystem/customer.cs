@@ -9,6 +9,6 @@ namespace BankingSystem
         public string Email { get; set; }
         public long PhoneNumber { get; set; }
         public long AccountNumber { get; set; }
-        public int AccountBalance { get; set; }
+        public long AccountBalance { get; set; } 
     }
 }

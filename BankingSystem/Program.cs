@@ -6,6 +6,8 @@ namespace BankingSystem
     {
         static void Main(string[] args)
         {
+            //Console.SetWindowSize(800,600);
+
             //login
             LoginPage loginObject = new LoginPage();
             loginObject.ExecuteLoginPage();
@@ -16,8 +18,6 @@ namespace BankingSystem
             //Display the main menu with choices
             MainMenu menuObject = new MainMenu();
             menuObject.ExecuteMainMenu();
-
-
 
         }
     }

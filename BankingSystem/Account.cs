@@ -25,9 +25,9 @@ namespace BankingSystem
 
         public void displayNewAccountPage()
         {
-            Console.WriteLine("\t\t __________________________________________________");
+            Console.WriteLine("\t\t╔══════════════════════════════════════════════════╗");
             Console.WriteLine("\t\t|               CREATE A NEW ACCOUNT               |");
-            Console.WriteLine("\t\t|__________________________________________________|");
+            Console.WriteLine("\t\t|══════════════════════════════════════════════════|");
             Console.WriteLine("\t\t|              ENTER THE DETAILS                   |");
             Console.WriteLine("\t\t|                                                  |");
             Console.Write("\t\t|    First Name:");
@@ -55,7 +55,7 @@ namespace BankingSystem
             emailCursorTop = Console.CursorTop;
             Console.Write("                                        |\n");
 
-            Console.WriteLine("\t\t|__________________________________________________|");
+            Console.WriteLine("\t\t╚══════════════════════════════════════════════════╝");
 
         }
 
@@ -80,26 +80,51 @@ namespace BankingSystem
 
         private void enterPhone()
         {
-            string input = Console.ReadLine();
-            bool isNumeric = !string.IsNullOrEmpty(input) && input.All(char.IsDigit);
-            if (isNumeric && input.Length == 10)
+            try
             {
-                PhoneNumber = Convert.ToInt64(input);
-                checkPhoneFlag = true;
-                
+                string input = Console.ReadLine();
+                bool isNumeric = !string.IsNullOrEmpty(input) && input.All(char.IsDigit);
+                if (isNumeric && input.Length == 10)
+                {
+                    PhoneNumber = Convert.ToInt64(input);
+                    checkPhoneFlag = true;
+                }
+                else
+                {
+                    Console.WriteLine("\n\nPlease enter valid Phone Number.");
+                    Console.ReadKey();
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.ReadKey();
             }
         }
 
         private void enterEmail()
         {
-            string input = Console.ReadLine();
-            for (int loopVar = 0; loopVar < input.Length; loopVar++)
+            try
             {
-                if ((input[loopVar]) == '@')
+                string input = Console.ReadLine();
+                for (int loopVar = 0; loopVar < input.Length; loopVar++)
                 {
-                    Email = input;
-                    checkEmailFlag = true;
+                    if ((input[loopVar]) == '@')
+                    {
+                        Email = input;
+                        checkEmailFlag = true;
+                    }
                 }
+                if (checkEmailFlag == false)
+                {
+                    Console.WriteLine("\n\nPlease enter valid email address.");
+                    Console.ReadKey();
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.ReadKey();
             }
         }
 
@@ -113,39 +138,62 @@ namespace BankingSystem
         }
 
         private void getAccountNumber()
-        {   
-            if( new FileInfo("accountNumbers.txt").Length == 0)
+        {
+            try
             {
-                StreamWriter sw = new StreamWriter("accountNumbers.txt",append:true);
-                AccountNumber = (intitalacNumber);
-                sw.WriteLine(Convert.ToString(AccountNumber));
-                sw.Close();       
+                AccountNumber = Convert.ToInt64(DateTime.Now.ToString("ddMMHHmmss"));
+                /*if (new FileInfo("accountNumbers.txt").Length < 6)
+                {
+                    AccountNumber = (intitalacNumber);
+                }
+                else
+                {
+                    string[] accountNumbersData = System.IO.File.ReadAllLines("accountNumbers.txt");
+                    int acLength = accountNumbersData.Length;
+
+                    string num = accountNumbersData[acLength - 1];
+                    AccountNumber = (Convert.ToInt64(num) + 1);
+                }  */
             }
-            else
+            catch (FileNotFoundException)
             {
-                string[] accountNumbersData = System.IO.File.ReadAllLines("accountNumbers.txt");
-                int acLength = accountNumbersData.Length;
-
-                string num = accountNumbersData[acLength - 1];
-                AccountNumber = (Convert.ToInt64(num) + 1);
-
-                StreamWriter sw = new StreamWriter("accountNumbers.txt",append:true);
-                sw.WriteLine(Convert.ToString(AccountNumber));
-                sw.Close();
-                
+                Console.ReadKey();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.ReadKey();
             }
         }
 
         private void accountFileStorage()
         {
-            accountData = new string[5];
-            accountData[0] = FirstName;
-            accountData[1] = LastName;
-            accountData[2] = Address;
-            accountData[3] = Convert.ToString(PhoneNumber);
-            accountData[4] = Email;
-            
-            File.WriteAllLines(Convert.ToString(AccountNumber)+".txt", accountData);
+            try
+            {
+                accountData = new string[12];
+                accountData[0] = FirstName;
+                accountData[1] = LastName;
+                accountData[2] = Address;
+                accountData[3] = Convert.ToString(PhoneNumber);
+                accountData[4] = Email;
+                accountData[5] = Convert.ToString(AccountBalance);
+                accountData[6] = "0";
+                accountData[7] = null;
+                accountData[8] = null;
+                accountData[9] = null;
+                accountData[10] = null;
+                accountData[11] = null;
+
+                File.WriteAllLines(Convert.ToString(AccountNumber) + ".txt", accountData);
+                StreamWriter sw = new StreamWriter("accountNumbers.txt", append: true);
+                sw.WriteLine(Convert.ToString(AccountNumber));
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.ReadKey();
+            }
         }
 
         private void sendEmail()
@@ -160,8 +208,12 @@ namespace BankingSystem
                 Console.Clear();
                 displayNewAccountPage();
                 enterDetail();
-                Console.WriteLine("\n\nIs the information correct (y/n)?");
-                info = Console.ReadLine();
+
+                if((checkPhoneFlag && checkEmailFlag))
+                {
+                    Console.WriteLine("\n\nIs the information correct (y/n)?");
+                    info = Console.ReadLine();
+                }   
 
             } while (!(checkPhoneFlag && checkEmailFlag && info=="y"));
 

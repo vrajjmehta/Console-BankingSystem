@@ -10,4 +10,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="transAccount.cs" />
+  </ItemGroup>
 </Project>

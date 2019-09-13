@@ -19,9 +19,9 @@ namespace BankingSystem
 
             //design for console UI
 
-            Console.WriteLine("\t\t __________________________________________________");
-            Console.WriteLine("\t\t╔           WELCOME TO SIMPLE BANKING SYSTEM       |");
-            Console.WriteLine("\t\t|__________________________________________________|");
+            Console.WriteLine("\t\t╔══════════════════════════════════════════════════╗");
+            Console.WriteLine("\t\t|           WELCOME TO SIMPLE BANKING SYSTEM       |");
+            Console.WriteLine("\t\t|══════════════════════════════════════════════════|");
 
             Console.WriteLine("\t\t|             LOGIN TO START                       |");
             Console.WriteLine("\t\t|                                                  |");
@@ -36,7 +36,7 @@ namespace BankingSystem
             passCursorTop = Console.CursorTop;
             Console.Write("                                     |\n");
 
-            Console.WriteLine("\t\t|__________________________________________________|");
+            Console.WriteLine("\t\t╚══════════════════════════════════════════════════╝");
 
 
             //set cursor for login and pasword

@@ -18,9 +18,9 @@ namespace BankingSystem
 
         public void DisplayMenu()
         {
-            Console.WriteLine("\t\t __________________________________________________");
+            Console.WriteLine("\t\t╔══════════════════════════════════════════════════╗");
             Console.WriteLine("\t\t|           WELCOME TO SIMPLE BANKING SYSTEM       |");
-            Console.WriteLine("\t\t|__________________________________________________|");
+            Console.WriteLine("\t\t|══════════════════════════════════════════════════|");
 
             Console.WriteLine("\t\t|       1.Create a new account                     |");
             Console.WriteLine("\t\t|       2.Search for an account                    |");
@@ -29,13 +29,13 @@ namespace BankingSystem
             Console.WriteLine("\t\t|       5.A/C statement                            |");
             Console.WriteLine("\t\t|       6.Delete account                           |");
             Console.WriteLine("\t\t|       7.Exit                                     |");
-            Console.WriteLine("\t\t|__________________________________________________|");
+            Console.WriteLine("\t\t╚══════════════════════════════════════════════════╝");
 
             Console.Write("\t\t|     Enter your choice(1-7):");
             choiceCursorLeft = Console.CursorLeft;
             choiceCursorTop = Console.CursorTop;
             Console.WriteLine("                      |");
-            Console.WriteLine("\t\t|__________________________________________________|");
+            Console.WriteLine("\t\t╚══════════════════════════════════════════════════╝");
 
             Console.SetCursorPosition(choiceCursorLeft, choiceCursorTop);
 
@@ -84,7 +84,37 @@ namespace BankingSystem
                     break;
 
                 case 2:
+                    Console.Clear();
+                    searchAccount search = new searchAccount();
+                    search.SearchAccount();
+                    break;
 
+                case 3:
+                    Console.Clear();
+                    transactAccount deposit = new transactAccount();
+                    deposit.Execute("deposit");
+                    break;
+
+                case 4:
+                    Console.Clear();
+                    transactAccount withdraw = new transactAccount();
+                    withdraw.Execute("withdraw");
+                    break;
+
+                case 5:
+                    Console.Clear();
+                    accountStatement statement = new accountStatement();
+                    statement.printStatement();
+                    break;
+
+                case 6:
+                    Console.Clear();
+                    deleteAccount delete = new deleteAccount();
+                    delete.removeAccount();
+                    break;
+
+                case 7:
+                    exitCond = true;
                     break;
             }
 

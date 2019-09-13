@@ -3,8 +3,10 @@ using System.IO;
 
 namespace BankingSystem
 {
-    public class searchAccount : customer
+    public class deleteAccount:customer
     {
+        private int acNumberCursorLeft, acNumberCursorTop;
+        private bool foundAccount;
         private int acNoCursorLeft, acNoCursorTop;
         private int acBalanceCursorLeft, acBalanceCursorTop;
         private int firstNameCursorLeft, firstNameCursorTop;
@@ -13,20 +15,18 @@ namespace BankingSystem
         private int phoneCursorLeft, phoneCursorTop;
         private int emailCursorLeft, emailCursorTop;
 
-        private int acNumberCursorLeft, acNumberCursorTop;
-        private bool foundAccount;
-       
-        public searchAccount()
+        public deleteAccount()
         {
             foundAccount = false;
+
         }
 
-        public void SearchAccount()
+        private void displayScreen()
         {
             try
             {
                 Console.WriteLine("\t\t╔══════════════════════════════════════════════════╗");
-                Console.WriteLine("\t\t|              SEARCH AN ACCOUNT                   |");
+                Console.WriteLine("\t\t|              DELETE AN ACCOUNT                   |");
                 Console.WriteLine("\t\t|══════════════════════════════════════════════════|");
 
                 Console.WriteLine("\t\t|              ENTER THE DETAILS                   |");
@@ -42,11 +42,6 @@ namespace BankingSystem
 
                 checkAccountExists();
             }
-            catch (FileNotFoundException)
-            {
-                Console.WriteLine("File not found");
-                Console.ReadKey();
-            }
             catch(Exception e)
             {
                 Console.WriteLine(e.Message);
@@ -54,11 +49,8 @@ namespace BankingSystem
             }
         }
 
-        public void displayAccount()
+        private void displayAccount()
         {
-            try
-            {
-
             Console.WriteLine("\t\t╔══════════════════════════════════════════════════╗");
             Console.WriteLine("\t\t|                 ACCOUNT DETAILS                  |");
             Console.WriteLine("\t\t|══════════════════════════════════════════════════|");
@@ -69,10 +61,10 @@ namespace BankingSystem
             acNoCursorTop = Console.CursorTop;
             Console.Write("                                   |\n");
 
-            Console.Write("\t\t|    Account Balance:");
+            Console.Write("\t\t|    Account Balance:$");
             acBalanceCursorLeft = Console.CursorLeft;
             acBalanceCursorTop = Console.CursorTop;
-            Console.Write("                              |\n");
+            Console.Write("                             |\n");
 
             Console.Write("\t\t|    First Name:");
             firstNameCursorLeft = Console.CursorLeft;
@@ -100,57 +92,66 @@ namespace BankingSystem
             Console.Write("                                        |\n");
             Console.WriteLine("\t\t╚══════════════════════════════════════════════════╝");
 
-            string[] accountData = System.IO.File.ReadAllLines(AccountNumber + ".txt");
 
-            Console.SetCursorPosition(acNoCursorLeft, acNoCursorTop);
-            Console.WriteLine(AccountNumber);
+            try
+            {
+                string[] accountData = System.IO.File.ReadAllLines(AccountNumber + ".txt");
 
-            Console.SetCursorPosition(acBalanceCursorLeft, acBalanceCursorTop);
-            Console.WriteLine(accountData[5]);
+                Console.SetCursorPosition(acNoCursorLeft, acNoCursorTop);
+                Console.WriteLine(AccountNumber);
 
-            Console.SetCursorPosition(firstNameCursorLeft, firstNameCursorTop);
-            Console.WriteLine(accountData[0]);
+                Console.SetCursorPosition(acBalanceCursorLeft, acBalanceCursorTop);
+                Console.WriteLine(accountData[5]);
 
-            Console.SetCursorPosition(lastNameCursorLeft, lastNameCursorTop);
-            Console.WriteLine(accountData[1]);
+                Console.SetCursorPosition(firstNameCursorLeft, firstNameCursorTop);
+                Console.WriteLine(accountData[0]);
 
-            Console.SetCursorPosition(addressCursorLeft, addressCursorTop);
-            Console.WriteLine(accountData[2]);
+                Console.SetCursorPosition(lastNameCursorLeft, lastNameCursorTop);
+                Console.WriteLine(accountData[1]);
 
-            Console.SetCursorPosition(phoneCursorLeft, phoneCursorTop);
-            Console.WriteLine(accountData[3]);
+                Console.SetCursorPosition(addressCursorLeft, addressCursorTop);
+                Console.WriteLine(accountData[2]);
 
-            Console.SetCursorPosition(emailCursorLeft, emailCursorTop);
-            Console.WriteLine(accountData[4]);
+                Console.SetCursorPosition(phoneCursorLeft, phoneCursorTop);
+                Console.WriteLine(accountData[3]);
 
+                Console.SetCursorPosition(emailCursorLeft, emailCursorTop);
+                Console.WriteLine(accountData[4]);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.ReadKey();
+            }
+
+        }
+
+        public void checkAccountExists()
+        {
+            try
+            {
+                string[] accountNumbersData = System.IO.File.ReadAllLines("accountNumbers.txt");
+                foreach (string set in accountNumbersData)
+                {
+                    if (set == Convert.ToString(AccountNumber))
+                    {
+                        Console.WriteLine("\n\nAccount found!");
+                        Console.ReadKey();
+                        foundAccount = true;
+                        displayAccount();
+                    }
+                }
+                if (foundAccount == false)
+                {
+                    Console.WriteLine("\n\nAccount not found!");
+                    checkAgain();
+                }
             }
             catch(Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.ReadKey();
             }
-            
-        }
-
-        public void checkAccountExists()
-        {
-            string[] accountNumbersData = System.IO.File.ReadAllLines("accountNumbers.txt");
-            foreach (string set in accountNumbersData)
-            {
-                if (set == Convert.ToString(AccountNumber))
-                {
-                    Console.WriteLine("\n\nAccount found!");
-                    Console.ReadKey();
-                    foundAccount = true;
-                    displayAccount();
-                    checkAgain();
-                }
-            }
-            if (foundAccount == false)
-            {
-                Console.WriteLine("\n\nAccount not found!");
-                checkAgain();
-            }           
         }
 
         private void checkAgain()
@@ -160,9 +161,40 @@ namespace BankingSystem
             if (info == "y")
             {
                 Console.Clear();
-                SearchAccount();
+                displayScreen();
             }
         }
-       
+
+        public void removeAccount()
+        {
+            try
+            {
+                displayScreen();
+                if (foundAccount == true)
+                {
+                    Console.WriteLine("\nDelete(y/n)?");
+                    string info = Console.ReadLine();
+                    if (info == "y")
+                    {
+                        string[] accountNumbersData = System.IO.File.ReadAllLines("accountNumbers.txt");
+                        for (int loopVar = 0; loopVar < accountNumbersData.Length; loopVar++)
+                        {
+                            if (accountNumbersData[loopVar] == Convert.ToString(AccountNumber))
+                            {
+                                accountNumbersData[loopVar] = null;
+                                break;
+                            }
+                        }
+                        System.IO.File.WriteAllLines("accountNumbers.txt", accountNumbersData);
+                        File.Delete(Convert.ToString(AccountNumber) + ".txt");
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.ReadKey();
+            }
+        }
     }
 }

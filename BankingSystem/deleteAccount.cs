@@ -3,7 +3,7 @@ using System.IO;
 
 namespace BankingSystem
 {
-    public class deleteAccount:customer
+    public class deleteAccount : customer
     {
         private int acNumberCursorLeft, acNumberCursorTop;
         private bool foundAccount;
@@ -42,7 +42,7 @@ namespace BankingSystem
 
                 checkAccountExists();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.ReadKey();
@@ -147,7 +147,7 @@ namespace BankingSystem
                     checkAgain();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.ReadKey();
@@ -190,7 +190,7 @@ namespace BankingSystem
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.ReadKey();

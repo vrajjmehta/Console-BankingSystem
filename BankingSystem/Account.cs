@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace BankingSystem
 {
@@ -11,14 +13,13 @@ namespace BankingSystem
         private int addressCursorLeft, addressCursorTop;
         private int phoneCursorLeft, phoneCursorTop;
         private int emailCursorLeft, emailCursorTop;
-        
+
         bool checkPhoneFlag, checkEmailFlag;
         string info;
-        long intitalacNumber = 100001;
         string[] accountData;
 
         public Account()
-        { 
+        {
             checkPhoneFlag = false;
             checkEmailFlag = false;
         }
@@ -95,7 +96,7 @@ namespace BankingSystem
                     Console.ReadKey();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.ReadKey();
@@ -121,7 +122,7 @@ namespace BankingSystem
                     Console.ReadKey();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.ReadKey();
@@ -134,7 +135,6 @@ namespace BankingSystem
             accountFileStorage();
 
             Console.WriteLine("Account number is: " + AccountNumber);
-            Console.WriteLine("Account created! details will be provided via email\n");
         }
 
         private void getAccountNumber()
@@ -142,22 +142,6 @@ namespace BankingSystem
             try
             {
                 AccountNumber = Convert.ToInt64(DateTime.Now.ToString("ddMMHHmmss"));
-                /*if (new FileInfo("accountNumbers.txt").Length < 6)
-                {
-                    AccountNumber = (intitalacNumber);
-                }
-                else
-                {
-                    string[] accountNumbersData = System.IO.File.ReadAllLines("accountNumbers.txt");
-                    int acLength = accountNumbersData.Length;
-
-                    string num = accountNumbersData[acLength - 1];
-                    AccountNumber = (Convert.ToInt64(num) + 1);
-                }  */
-            }
-            catch (FileNotFoundException)
-            {
-                Console.ReadKey();
             }
             catch (Exception e)
             {
@@ -188,6 +172,11 @@ namespace BankingSystem
                 StreamWriter sw = new StreamWriter("accountNumbers.txt", append: true);
                 sw.WriteLine(Convert.ToString(AccountNumber));
                 sw.Close();
+                Console.WriteLine("Account created!\n");
+            }
+            catch (FileNotFoundException)
+            {
+                Console.ReadKey();
             }
             catch (Exception e)
             {
@@ -196,31 +185,65 @@ namespace BankingSystem
             }
         }
 
-        private void sendEmail()
+        private async Task<bool> SendEmail()
         {
-            
+            try
+            {
+
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+                mail.From = new MailAddress("vrajmehta1511@gmail.com");
+                mail.To.Add(Email);
+                mail.Subject = "Account Details";
+                mail.Body = "FirstName: " + accountData[0] + "\nLastName: " + accountData[1] + "\nAddress: " + accountData[2] + "\nPhone Number: "
+                            + accountData[3] + "\nEmail :" + accountData[4] + "\nAccountBalance :$" + accountData[5];
+
+                SmtpServer.Port = 587;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("vrajmehta1511", "Password0#");
+                SmtpServer.EnableSsl = true;
+
+                SmtpServer.Send(mail);
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.ReadKey();
+                return false;
+            }
         }
 
-        public void Execute()
-        { 
+        public async Task ExecuteAsync()
+        {
             do
             {
                 Console.Clear();
                 displayNewAccountPage();
                 enterDetail();
 
-                if((checkPhoneFlag && checkEmailFlag))
+                if ((checkPhoneFlag && checkEmailFlag))
                 {
                     Console.WriteLine("\n\nIs the information correct (y/n)?");
                     info = Console.ReadLine();
-                }   
+                }
 
-            } while (!(checkPhoneFlag && checkEmailFlag && info=="y"));
+            } while (!(checkPhoneFlag && checkEmailFlag && info == "y"));
 
             createAccount();
-            sendEmail();
 
+            Console.WriteLine("\nPlease wait...... Sending the account details via email to " + Email);
+            bool e = await SendEmail();
+            if (e == true)
+            {
+                Console.WriteLine("\nSucess!\nAccount details has been sent via email\n");
+            }
+            else
+            {
+                Console.WriteLine("Could not send email. Check!");
+            }
             Console.ReadKey();
-        }      
+        }
     }
 }

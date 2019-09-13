@@ -5,8 +5,9 @@ namespace BankingSystem
     class Program
     {
         static void Main(string[] args)
-        {
-            //Console.SetWindowSize(800,600);
+        { 
+            //Console.WindowHeight = 40;
+            //Console.WindowWidth = 90;
 
             //login
             LoginPage loginObject = new LoginPage();

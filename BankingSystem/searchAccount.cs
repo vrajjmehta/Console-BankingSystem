@@ -15,7 +15,7 @@ namespace BankingSystem
 
         private int acNumberCursorLeft, acNumberCursorTop;
         private bool foundAccount;
-       
+
         public searchAccount()
         {
             foundAccount = false;
@@ -47,7 +47,7 @@ namespace BankingSystem
                 Console.WriteLine("File not found");
                 Console.ReadKey();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.ReadKey();
@@ -59,77 +59,77 @@ namespace BankingSystem
             try
             {
 
-            Console.WriteLine("\t\t╔══════════════════════════════════════════════════╗");
-            Console.WriteLine("\t\t|                 ACCOUNT DETAILS                  |");
-            Console.WriteLine("\t\t|══════════════════════════════════════════════════|");
-            Console.WriteLine("\t\t|                                                  |");
+                Console.WriteLine("\t\t╔══════════════════════════════════════════════════╗");
+                Console.WriteLine("\t\t|                 ACCOUNT DETAILS                  |");
+                Console.WriteLine("\t\t|══════════════════════════════════════════════════|");
+                Console.WriteLine("\t\t|                                                  |");
 
-            Console.Write("\t\t|    Account No:");
-            acNoCursorLeft = Console.CursorLeft;
-            acNoCursorTop = Console.CursorTop;
-            Console.Write("                                   |\n");
+                Console.Write("\t\t|    Account No:");
+                acNoCursorLeft = Console.CursorLeft;
+                acNoCursorTop = Console.CursorTop;
+                Console.Write("                                   |\n");
 
-            Console.Write("\t\t|    Account Balance:");
-            acBalanceCursorLeft = Console.CursorLeft;
-            acBalanceCursorTop = Console.CursorTop;
-            Console.Write("                              |\n");
+                Console.Write("\t\t|    Account Balance:");
+                acBalanceCursorLeft = Console.CursorLeft;
+                acBalanceCursorTop = Console.CursorTop;
+                Console.Write("                              |\n");
 
-            Console.Write("\t\t|    First Name:");
-            firstNameCursorLeft = Console.CursorLeft;
-            firstNameCursorTop = Console.CursorTop;
-            Console.Write("                                   |\n");
+                Console.Write("\t\t|    First Name:");
+                firstNameCursorLeft = Console.CursorLeft;
+                firstNameCursorTop = Console.CursorTop;
+                Console.Write("                                   |\n");
 
-            Console.Write("\t\t|    Last Name:");
-            lastNameCursorLeft = Console.CursorLeft;
-            lastNameCursorTop = Console.CursorTop;
-            Console.Write("                                    |\n");
+                Console.Write("\t\t|    Last Name:");
+                lastNameCursorLeft = Console.CursorLeft;
+                lastNameCursorTop = Console.CursorTop;
+                Console.Write("                                    |\n");
 
-            Console.Write("\t\t|    Address:");
-            addressCursorLeft = Console.CursorLeft;
-            addressCursorTop = Console.CursorTop;
-            Console.Write("                                      |\n");
+                Console.Write("\t\t|    Address:");
+                addressCursorLeft = Console.CursorLeft;
+                addressCursorTop = Console.CursorTop;
+                Console.Write("                                      |\n");
 
-            Console.Write("\t\t|    Phone:");
-            phoneCursorLeft = Console.CursorLeft;
-            phoneCursorTop = Console.CursorTop;
-            Console.Write("                                        |\n");
+                Console.Write("\t\t|    Phone:");
+                phoneCursorLeft = Console.CursorLeft;
+                phoneCursorTop = Console.CursorTop;
+                Console.Write("                                        |\n");
 
-            Console.Write("\t\t|    Email:");
-            emailCursorLeft = Console.CursorLeft;
-            emailCursorTop = Console.CursorTop;
-            Console.Write("                                        |\n");
-            Console.WriteLine("\t\t╚══════════════════════════════════════════════════╝");
+                Console.Write("\t\t|    Email:");
+                emailCursorLeft = Console.CursorLeft;
+                emailCursorTop = Console.CursorTop;
+                Console.Write("                                        |\n");
+                Console.WriteLine("\t\t╚══════════════════════════════════════════════════╝");
 
-            string[] accountData = System.IO.File.ReadAllLines(AccountNumber + ".txt");
+                string[] accountData = System.IO.File.ReadAllLines(AccountNumber + ".txt");
 
-            Console.SetCursorPosition(acNoCursorLeft, acNoCursorTop);
-            Console.WriteLine(AccountNumber);
+                Console.SetCursorPosition(acNoCursorLeft, acNoCursorTop);
+                Console.WriteLine(AccountNumber);
 
-            Console.SetCursorPosition(acBalanceCursorLeft, acBalanceCursorTop);
-            Console.WriteLine(accountData[5]);
+                Console.SetCursorPosition(acBalanceCursorLeft, acBalanceCursorTop);
+                Console.WriteLine(accountData[5]);
 
-            Console.SetCursorPosition(firstNameCursorLeft, firstNameCursorTop);
-            Console.WriteLine(accountData[0]);
+                Console.SetCursorPosition(firstNameCursorLeft, firstNameCursorTop);
+                Console.WriteLine(accountData[0]);
 
-            Console.SetCursorPosition(lastNameCursorLeft, lastNameCursorTop);
-            Console.WriteLine(accountData[1]);
+                Console.SetCursorPosition(lastNameCursorLeft, lastNameCursorTop);
+                Console.WriteLine(accountData[1]);
 
-            Console.SetCursorPosition(addressCursorLeft, addressCursorTop);
-            Console.WriteLine(accountData[2]);
+                Console.SetCursorPosition(addressCursorLeft, addressCursorTop);
+                Console.WriteLine(accountData[2]);
 
-            Console.SetCursorPosition(phoneCursorLeft, phoneCursorTop);
-            Console.WriteLine(accountData[3]);
+                Console.SetCursorPosition(phoneCursorLeft, phoneCursorTop);
+                Console.WriteLine(accountData[3]);
 
-            Console.SetCursorPosition(emailCursorLeft, emailCursorTop);
-            Console.WriteLine(accountData[4]);
+                Console.SetCursorPosition(emailCursorLeft, emailCursorTop);
+                Console.WriteLine(accountData[4]);
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.ReadKey();
             }
-            
+
         }
 
         public void checkAccountExists()
@@ -150,7 +150,7 @@ namespace BankingSystem
             {
                 Console.WriteLine("\n\nAccount not found!");
                 checkAgain();
-            }           
+            }
         }
 
         private void checkAgain()
@@ -163,6 +163,6 @@ namespace BankingSystem
                 SearchAccount();
             }
         }
-       
+
     }
 }

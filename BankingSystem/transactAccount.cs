@@ -10,7 +10,7 @@ namespace BankingSystem
         private int amountCursorLeft, amountCursorTop;
         private const string deposit = "DEPOSIT";
         private const string withdraw = "WITHRAW";
-        private string dual,info;
+        private string dual, info;
         public string amount { get; set; }
         public DateTime timestamp { get; set; }
 
@@ -28,7 +28,7 @@ namespace BankingSystem
         private void depositWithdrawMoney()
         {
             Console.WriteLine("\t\t╔══════════════════════════════════════════════════╗");
-            Console.WriteLine("\t\t|                    "+dual+"                       |");
+            Console.WriteLine("\t\t|                    " + dual + "                       |");
             Console.WriteLine("\t\t|══════════════════════════════════════════════════|");
 
             Console.WriteLine("\t\t|              ENTER THE DETAILS                   |");
@@ -63,9 +63,9 @@ namespace BankingSystem
             {
                 int money = Convert.ToInt32(Console.ReadLine());
                 string[] accountData = System.IO.File.ReadAllLines(Convert.ToString(AccountNumber) + ".txt");
-            
+
                 accountData[6] = Convert.ToString(Convert.ToInt32(accountData[6]) + 1);
-                if ((Convert.ToInt32(accountData[6]))%5 == 0)
+                if ((Convert.ToInt32(accountData[6])) % 5 == 0)
                 {
                     accountData[(Convert.ToInt32(accountData[6]) % 5) + 11] = "+" + Convert.ToString(money) + "|" + (System.DateTime.Now);
                 }
@@ -73,12 +73,12 @@ namespace BankingSystem
                 {
                     accountData[(Convert.ToInt32(accountData[6]) % 5) + 6] = "+" + Convert.ToString(money) + "|" + (System.DateTime.Now);
                 }
-                
+
                 money = money + Convert.ToInt32(accountData[5]);
                 accountData[5] = Convert.ToString(money);
 
                 System.IO.File.WriteAllLines(Convert.ToString(AccountNumber) + ".txt", accountData);
-                Console.WriteLine("\n\n\nDeposit Successful! Updated balance is :$"+money);
+                Console.WriteLine("\n\n\nDeposit Successful! Updated balance is :$" + money);
                 Console.ReadKey();
 
             }
@@ -86,17 +86,17 @@ namespace BankingSystem
             {
                 Console.WriteLine(e.Message);
                 Console.ReadKey();
-            }    
+            }
         }
 
         private void withdrawAmount()
         {
             Console.SetCursorPosition(amountCursorLeft, amountCursorTop);
             try
-            { 
+            {
                 int money = Convert.ToInt32(Console.ReadLine());
                 string[] accountData = System.IO.File.ReadAllLines(Convert.ToString(AccountNumber) + ".txt");
-                if((Convert.ToInt32(accountData[5])-money)<0)
+                if ((Convert.ToInt32(accountData[5]) - money) < 0)
                 {
                     Console.WriteLine("\n\nCant withdraw more than account balance!");
                     Console.ReadKey();
@@ -104,7 +104,7 @@ namespace BankingSystem
                 else
                 {
                     accountData[6] = Convert.ToString(Convert.ToInt32(accountData[6]) + 1);
-                    if ((Convert.ToInt32(accountData[6]))%5 == 0)
+                    if ((Convert.ToInt32(accountData[6])) % 5 == 0)
                     {
                         accountData[(Convert.ToInt32(accountData[6]) % 5) + 11] = "-" + Convert.ToString(money) + "|" + (System.DateTime.Now);
                     }
@@ -113,7 +113,7 @@ namespace BankingSystem
                         accountData[(Convert.ToInt32(accountData[6]) % 5) + 6] = "-" + Convert.ToString(money) + "|" + (System.DateTime.Now);
                     }
 
-                    accountData[5]= Convert.ToString(Convert.ToInt32(accountData[5])-money);
+                    accountData[5] = Convert.ToString(Convert.ToInt32(accountData[5]) - money);
                     System.IO.File.WriteAllLines(Convert.ToString(AccountNumber) + ".txt", accountData);
                     Console.WriteLine("\n\n\nWithdrawal Successful! Updated balance is :$" + accountData[5]);
                     Console.ReadKey();
@@ -152,7 +152,7 @@ namespace BankingSystem
                 Console.WriteLine("File not found");
                 Console.ReadKey();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.ReadKey();
@@ -167,7 +167,7 @@ namespace BankingSystem
             {
                 Console.Clear();
                 depositWithdrawMoney();
-            }    
+            }
         }
 
         public void Execute(string dual)
@@ -181,7 +181,7 @@ namespace BankingSystem
                     depositAmount();
                 }
             }
-            else if(dual == "withdraw")
+            else if (dual == "withdraw")
             {
                 this.dual = withdraw;
                 depositWithdrawMoney();

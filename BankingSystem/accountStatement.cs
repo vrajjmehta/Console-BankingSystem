@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace BankingSystem
 {
@@ -8,10 +10,10 @@ namespace BankingSystem
         private int acNumberCursorLeft, acNumberCursorTop;
         private bool foundAccount;
         private int acNoCursorLeft, acNoCursorTop, acBalanceCursorLeft, acBalanceCursorTop;
-        private int firstNameCursorLeft,firstNameCursorTop, lastNameCursorLeft,lastNameCursorTop;
-        private int addressCursorLeft,addressCursorTop, transCursorLeft, transCursorTop;
-        private int phoneCursorLeft, phoneCursorTop, emailCursorLeft,emailCursorTop;
-
+        private int firstNameCursorLeft, firstNameCursorTop, lastNameCursorLeft, lastNameCursorTop;
+        private int addressCursorLeft, addressCursorTop, transCursorLeft, transCursorTop;
+        private int phoneCursorLeft, phoneCursorTop, emailCursorLeft, emailCursorTop;
+        string[] emailStatement = new string[5];
         public accountStatement()
         {
             foundAccount = false;
@@ -37,16 +39,15 @@ namespace BankingSystem
 
                 checkAccountExists();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.ReadKey();
             }
         }
 
-        private void displayStatement()
+        private async System.Threading.Tasks.Task displayStatementAsync()
         {
-            Console.Clear();
             try
             {
                 Console.WriteLine("\n\t\t╔══════════════════════════════════════════════════╗");
@@ -128,10 +129,28 @@ namespace BankingSystem
                 {
                     string[] split = accountData[loopVar].Split("|");
                     Console.WriteLine("\t\t\t" + split[0] + "\t\t\t" + split[1]);
+                    emailStatement[loopVar - 7] = split[0] + "\t" + split[1];
                 }
                 Console.WriteLine("\t\t\tCurrent Balance:$" + accountData[5]);
-
                 Console.ReadKey();
+
+                Console.WriteLine("Email Statement (y/n)?");
+                string info = Console.ReadLine();
+                if (info == "y")
+                {
+                    Console.WriteLine("\nPlease wait...... Sending the account statement.");
+                    bool b = await SendEmail();
+                    if (b == true)
+                    {
+                        Console.WriteLine("Email sent successfully!...");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Cannot sent email. Check!");
+                        Console.ReadKey();
+                    }
+                }
 
             }
             catch (Exception e)
@@ -154,7 +173,7 @@ namespace BankingSystem
                         Console.WriteLine("\n\nAccount found!The statement is displayed below...");
                         Console.ReadKey();
                         foundAccount = true;
-                        displayStatement();
+                        displayStatementAsync();
                         break;
                     }
                 }
@@ -168,7 +187,7 @@ namespace BankingSystem
             {
                 Console.WriteLine("File not found");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.ReadKey();
@@ -185,5 +204,38 @@ namespace BankingSystem
                 printStatement();
             }
         }
+
+        private async Task<bool> SendEmail()
+        {
+            try
+            {
+                string[] accountData = System.IO.File.ReadAllLines(AccountNumber + ".txt");
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+                mail.From = new MailAddress("vrajmehta1511@gmail.com");
+                mail.To.Add(accountData[4]);
+                mail.Subject = "Account Details";
+                mail.Body = "FirstName: " + accountData[0] + "\nLastName: " + accountData[1] + "\nAddress: " + accountData[2] + "\nPhone Number: "
+                            + accountData[3] + "\nEmail :" + accountData[4] + "\nAccountBalance :$" + accountData[5]
+                            + "\nLast 5 transactions are:\n" + emailStatement[0] + "\n" + emailStatement[1] + "\n" + emailStatement[2]
+                            + "\n" + emailStatement[3] + "\n" + emailStatement[4];
+
+                SmtpServer.Port = 587;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("vrajmehta1511", "Password0#");
+                SmtpServer.EnableSsl = true;
+
+                SmtpServer.Send(mail);
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.ReadKey();
+                return false;
+            }
+        }
+
     }
 }

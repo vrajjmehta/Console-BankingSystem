@@ -7,7 +7,7 @@ namespace BankingSystem
     {
         private int choiceCursorLeft;
         private int choiceCursorTop;
-        private bool checkChoice,exitCond;
+        private bool checkChoice, exitCond;
         private int choice;
 
         public MainMenu()
@@ -52,14 +52,14 @@ namespace BankingSystem
                         checkChoice = true;
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     //handle exception
                     Console.WriteLine("\n\n");
                     Console.WriteLine(e.Message);
                     Console.ReadKey();
                 }
-            }   
+            }
         }
 
         public void ExecuteMainMenu()
@@ -69,7 +69,7 @@ namespace BankingSystem
                 Console.Clear();
                 DisplayMenu();
                 Choice();
-            } while (!checkChoice || !exitCond);    
+            } while (!checkChoice || !exitCond);
         }
 
 
@@ -80,7 +80,7 @@ namespace BankingSystem
                 case 1:
                     Console.Clear();
                     Account account = new Account();
-                    account.Execute();
+                    account.ExecuteAsync();
                     break;
 
                 case 2:

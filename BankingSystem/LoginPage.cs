@@ -13,7 +13,7 @@ namespace BankingSystem
         }
 
         public void Login()
-        { 
+        {
             string userName, passWord;
             int loginCursorLeft, loginCursorTop, passCursorTop, passCursorLeft;
 
@@ -72,7 +72,7 @@ namespace BankingSystem
             Console.WriteLine("\n\n");
             //check the credentials from a file
             try
-            { 
+            {
                 string[] loginData = System.IO.File.ReadAllLines("login.txt");
 
                 // Split each line using "|" as delimiter and check the values as
@@ -82,15 +82,15 @@ namespace BankingSystem
                     // Split each line
                     string[] splits = set.Split('|');
                     //Check the values of username and password
-                    if(splits[0]==userName && splits[1] == passWord)
+                    if (splits[0] == userName && splits[1] == passWord)
                     {
                         Console.WriteLine("\nValid Credentails!... Login Successsful.Please enter");
                         Console.ReadKey();
                         loginCheck = true;
                         break;
-                    }     
+                    }
                 }
-                if(loginCheck==false)
+                if (loginCheck == false)
                 {
                     Console.WriteLine("\nWrong UserName/Pasword... Login Unsucessful!\nPlease enter again");
                     Console.ReadKey();
@@ -103,12 +103,12 @@ namespace BankingSystem
                 // Display the error message
                 Console.WriteLine("File not found");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-        
-         }
+
+        }
 
         public void ExecuteLoginPage()
         {
@@ -119,6 +119,6 @@ namespace BankingSystem
             } while (!loginCheck);
 
         }
-       
+
     }
 }

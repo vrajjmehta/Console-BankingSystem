@@ -100,7 +100,7 @@ namespace BankingSystem
                 Console.Write("                                        |\n");
                 Console.WriteLine("\t\t╚══════════════════════════════════════════════════╝");
 
-                string[] accountData = System.IO.File.ReadAllLines(AccountNumber + ".txt");
+                string[] accountData = File.ReadAllLines(AccountNumber + ".txt");
 
                 Console.SetCursorPosition(acNoCursorLeft, acNoCursorTop);
                 Console.WriteLine(AccountNumber);
@@ -134,7 +134,7 @@ namespace BankingSystem
 
         public void checkAccountExists()
         {
-            string[] accountNumbersData = System.IO.File.ReadAllLines("accountNumbers.txt");
+            string[] accountNumbersData = File.ReadAllLines("accountNumbers.txt");
             foreach (string set in accountNumbersData)
             {
                 if (set == Convert.ToString(AccountNumber))

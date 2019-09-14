@@ -112,7 +112,6 @@ namespace BankingSystem
                     {
                         accountData[(Convert.ToInt32(accountData[6]) % 5) + 6] = "-" + Convert.ToString(money) + "|" + (System.DateTime.Now);
                     }
-
                     accountData[5] = Convert.ToString(Convert.ToInt32(accountData[5]) - money);
                     System.IO.File.WriteAllLines(Convert.ToString(AccountNumber) + ".txt", accountData);
                     Console.WriteLine("\n\n\nWithdrawal Successful! Updated balance is :$" + accountData[5]);

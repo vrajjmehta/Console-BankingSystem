@@ -14,7 +14,7 @@ namespace BankingSystem
         private int phoneCursorLeft, phoneCursorTop;
         private int emailCursorLeft, emailCursorTop;
 
-        bool checkPhoneFlag, checkEmailFlag;
+        bool checkPhoneFlag, checkEmailFlag , foundAccount;
         string info;
         string[] accountData;
 
@@ -22,6 +22,7 @@ namespace BankingSystem
         {
             checkPhoneFlag = false;
             checkEmailFlag = false;
+            foundAccount = false;
         }
 
         public void displayNewAccountPage()
@@ -85,7 +86,7 @@ namespace BankingSystem
             {
                 string input = Console.ReadLine();
                 bool isNumeric = !string.IsNullOrEmpty(input) && input.All(char.IsDigit);
-                if (isNumeric && input.Length == 10)
+                if (isNumeric && input.Length <= 10)
                 {
                     PhoneNumber = Convert.ToInt64(input);
                     checkPhoneFlag = true;
@@ -141,12 +142,29 @@ namespace BankingSystem
         {
             try
             {
-                AccountNumber = Convert.ToInt64(DateTime.Now.ToString("ddMMHHmmss"));
+                do
+                {
+                    AccountNumber = Convert.ToInt64(DateTime.Now.ToString("ddHHmmss"));
+                    checkAccountExists();
+                } while (foundAccount);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.ReadKey();
+            }
+        }
+
+        public void checkAccountExists()
+        {
+            string[] accountNumbersData = File.ReadAllLines("accountNumbers.txt");
+            foreach (string set in accountNumbersData)
+            {
+                if (set == Convert.ToString(AccountNumber))
+                {
+                    foundAccount = true;
+                    getAccountNumber();      
+                }
             }
         }
 
@@ -241,7 +259,7 @@ namespace BankingSystem
             }
             else
             {
-                Console.WriteLine("Could not send email. Check!");
+                Console.WriteLine("Could not send email. Check! Enter proper email address");
             }
             Console.ReadKey();
         }

@@ -18,7 +18,6 @@ namespace BankingSystem
         public deleteAccount()
         {
             foundAccount = false;
-
         }
 
         private void displayScreen()
@@ -95,7 +94,7 @@ namespace BankingSystem
 
             try
             {
-                string[] accountData = System.IO.File.ReadAllLines(AccountNumber + ".txt");
+                string[] accountData = File.ReadAllLines(AccountNumber + ".txt");
 
                 Console.SetCursorPosition(acNoCursorLeft, acNoCursorTop);
                 Console.WriteLine(AccountNumber);
@@ -130,7 +129,7 @@ namespace BankingSystem
         {
             try
             {
-                string[] accountNumbersData = System.IO.File.ReadAllLines("accountNumbers.txt");
+                string[] accountNumbersData = File.ReadAllLines("accountNumbers.txt");
                 foreach (string set in accountNumbersData)
                 {
                     if (set == Convert.ToString(AccountNumber))
@@ -176,7 +175,7 @@ namespace BankingSystem
                     string info = Console.ReadLine();
                     if (info == "y")
                     {
-                        string[] accountNumbersData = System.IO.File.ReadAllLines("accountNumbers.txt");
+                        string[] accountNumbersData = File.ReadAllLines("accountNumbers.txt");
                         for (int loopVar = 0; loopVar < accountNumbersData.Length; loopVar++)
                         {
                             if (accountNumbersData[loopVar] == Convert.ToString(AccountNumber))
@@ -185,7 +184,7 @@ namespace BankingSystem
                                 break;
                             }
                         }
-                        System.IO.File.WriteAllLines("accountNumbers.txt", accountNumbersData);
+                        File.WriteAllLines("accountNumbers.txt", accountNumbersData);
                         File.Delete(Convert.ToString(AccountNumber) + ".txt");
                     }
                 }

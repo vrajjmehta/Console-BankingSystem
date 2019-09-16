@@ -148,7 +148,9 @@ namespace BankingSystem
 
         public void checkAccountExists()
         {
-            //IF THE SAME ACCOUNTNUMBER EXISTS, GET ANOTHER ACCOUNT NUMBER
+            //IF THE SAME ACCOUNTNUMBER EXISTS, GET ANOTHER ACCOUNT NUMBER    
+            StreamWriter sw = new StreamWriter("accountNumbers.txt", append: true);
+            sw.Close();
             string[] accountNumbersData = File.ReadAllLines("accountNumbers.txt");
             foreach (string set in accountNumbersData)
             {

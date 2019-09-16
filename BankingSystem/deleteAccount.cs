@@ -15,13 +15,14 @@ namespace BankingSystem
         private int phoneCursorLeft, phoneCursorTop;
         private int emailCursorLeft, emailCursorTop;
 
+        //CONSTRUCTOR TO INTIALIZE ALL BOOL VARIABLES AS FALSE.
         public deleteAccount()
         {
             foundAccount = false;
         }
 
         private void displayScreen()
-        {
+        {   //CONSOLE UI TO ENTER ACCOUNT NUMBER 
             try
             {
                 Console.WriteLine("\t\t╔══════════════════════════════════════════════════╗");
@@ -49,7 +50,7 @@ namespace BankingSystem
         }
 
         private void displayAccount()
-        {
+        {   ////CONSOLE UI TO DISPLAY ACCOUNT DETAILS BEFORE DELETION
             Console.WriteLine("\t\t╔══════════════════════════════════════════════════╗");
             Console.WriteLine("\t\t|                 ACCOUNT DETAILS                  |");
             Console.WriteLine("\t\t|══════════════════════════════════════════════════|");
@@ -126,7 +127,7 @@ namespace BankingSystem
         }
 
         public void checkAccountExists()
-        {
+        {    //CHECK ACCOUNT EXITS 
             try
             {
                 string[] accountNumbersData = File.ReadAllLines("accountNumbers.txt");
@@ -154,7 +155,7 @@ namespace BankingSystem
         }
 
         private void checkAgain()
-        {
+        {   //CHECK ANOTHER ACCOUNT
             Console.WriteLine("\n\nCheck another account (y/n)?");
             string info = Console.ReadLine();
             if (info == "y")
@@ -165,7 +166,7 @@ namespace BankingSystem
         }
 
         public void removeAccount()
-        {
+        {   //LOGIC TO DELETE AN ACCOUNT
             try
             {
                 displayScreen();
@@ -174,17 +175,21 @@ namespace BankingSystem
                     Console.WriteLine("\nDelete(y/n)?");
                     string info = Console.ReadLine();
                     if (info == "y")
-                    {
+                    {   // 1. REMOVE THE ACCOUNT FROM "accountNumber.txt"
+                        // 2. REMOVE THE ACCOUNT NUMBER FILE ALSO.
                         string[] accountNumbersData = File.ReadAllLines("accountNumbers.txt");
                         for (int loopVar = 0; loopVar < accountNumbersData.Length; loopVar++)
                         {
                             if (accountNumbersData[loopVar] == Convert.ToString(AccountNumber))
                             {
+                                //1..... CHANGE THE LINE TO NULL
                                 accountNumbersData[loopVar] = null;
                                 break;
                             }
                         }
                         File.WriteAllLines("accountNumbers.txt", accountNumbersData);
+
+                        //2......DELELTE ACCOUNTNUMBER FILE
                         File.Delete(Convert.ToString(AccountNumber) + ".txt");
                     }
                 }

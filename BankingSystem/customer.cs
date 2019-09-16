@@ -3,6 +3,7 @@ namespace BankingSystem
 {
     public class customer
     {
+        // GETTERS AND SETTERS FOR A CUSTOMER ACCOUNT DETAILS
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Address { get; set; }

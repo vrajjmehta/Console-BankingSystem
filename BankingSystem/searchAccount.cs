@@ -16,13 +16,15 @@ namespace BankingSystem
         private int acNumberCursorLeft, acNumberCursorTop;
         private bool foundAccount;
 
+        //CONSTRUCTOR TO INTIALIZE ALL BOOL VARIABLES AS FALSE.
         public searchAccount()
-        {
+        {   
             foundAccount = false;
         }
 
         public void SearchAccount()
         {
+            //CONSOLE UI FOR SEARCH ACCOUNT
             try
             {
                 Console.WriteLine("\t\t╔══════════════════════════════════════════════════╗");
@@ -57,7 +59,7 @@ namespace BankingSystem
         public void displayAccount()
         {
             try
-            {
+            {   //DISPLAY THE ACCOUNT DETAILS
 
                 Console.WriteLine("\t\t╔══════════════════════════════════════════════════╗");
                 Console.WriteLine("\t\t|                 ACCOUNT DETAILS                  |");
@@ -134,6 +136,7 @@ namespace BankingSystem
 
         public void checkAccountExists()
         {
+            //CONVERT ALL THE LINES TO ARRAY OF STRINGS
             string[] accountNumbersData = File.ReadAllLines("accountNumbers.txt");
             foreach (string set in accountNumbersData)
             {
@@ -155,6 +158,7 @@ namespace BankingSystem
 
         private void checkAgain()
         {
+            //CHECK ANOTHER ACCOUNT DETAILS
             Console.WriteLine("\n\nCheck another account (y/n)?");
             string info = Console.ReadLine();
             if (info == "y")

@@ -73,7 +73,7 @@ namespace BankingSystem
             //check the credentials from a file
             try
             {
-                string[] loginData = System.IO.File.ReadAllLines("login.txt");
+                string[] loginData = File.ReadAllLines("login.txt");
 
                 // Split each line using "|" as delimiter and check the values as
                 // User Name: ------, Passowrd: .... "
@@ -111,14 +111,12 @@ namespace BankingSystem
         }
 
         public void ExecuteLoginPage()
-        {
+        {   //do while loop untill succesfully login
             do
             {
                 Console.Clear();
                 Login();
             } while (!loginCheck);
-
         }
-
     }
 }

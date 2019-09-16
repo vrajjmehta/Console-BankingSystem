@@ -5,8 +5,6 @@ namespace BankingSystem
 {
     public class MainMenu
     {
-        private int choiceCursorLeft;
-        private int choiceCursorTop;
         private bool checkChoice, exitCond;
         private int choice;
 
@@ -18,6 +16,9 @@ namespace BankingSystem
 
         public void DisplayMenu()
         {
+            int choiceCursorLeft, choiceCursorTop;
+
+            //design for console UI of Main Menu
             Console.WriteLine("\t\t╔══════════════════════════════════════════════════╗");
             Console.WriteLine("\t\t|           WELCOME TO SIMPLE BANKING SYSTEM       |");
             Console.WriteLine("\t\t|══════════════════════════════════════════════════|");
@@ -39,8 +40,9 @@ namespace BankingSystem
 
             Console.SetCursorPosition(choiceCursorLeft, choiceCursorTop);
 
+            //read input 
             string input = Console.ReadLine();
-            bool isNumeric = !string.IsNullOrEmpty(input) && input.All(char.IsDigit);
+            bool isNumeric = !string.IsNullOrEmpty(input) && input.All(char.IsDigit);    //linq query to check null & Digits
 
             if (isNumeric)
             {
@@ -64,6 +66,7 @@ namespace BankingSystem
 
         public void ExecuteMainMenu()
         {
+            //do while loop unital exitcond or 1-7 is entered
             do
             {
                 Console.Clear();
@@ -77,42 +80,49 @@ namespace BankingSystem
         {
             switch (choice)
             {
+                //if 1 is entered, create a new account
                 case 1:
                     Console.Clear();
                     Account account = new Account();
                     account.ExecuteAsync();
                     break;
 
+                //if 2 is entered, search account 
                 case 2:
                     Console.Clear();
                     searchAccount search = new searchAccount();
                     search.SearchAccount();
                     break;
 
+                //if 3 is entered, call deposit 
                 case 3:
                     Console.Clear();
                     transactAccount deposit = new transactAccount();
                     deposit.Execute("deposit");
                     break;
 
+                //if 4 is entered, call withdraw
                 case 4:
                     Console.Clear();
                     transactAccount withdraw = new transactAccount();
                     withdraw.Execute("withdraw");
                     break;
 
+                //if 5 is entered, print statement for account
                 case 5:
                     Console.Clear();
                     accountStatement statement = new accountStatement();
                     statement.printStatement();
                     break;
 
+                //if 6 is entered, delete account
                 case 6:
                     Console.Clear();
                     deleteAccount delete = new deleteAccount();
                     delete.removeAccount();
                     break;
 
+                //if 7 is entered, exit from console
                 case 7:
                     exitCond = true;
                     break;

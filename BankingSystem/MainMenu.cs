@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace BankingSystem
@@ -44,7 +45,7 @@ namespace BankingSystem
             string input = Console.ReadLine();
             bool isNumeric = !string.IsNullOrEmpty(input) && input.All(char.IsDigit);    //linq query to check null & Digits
 
-            if (isNumeric)
+            if (isNumeric && input.Length==1)
             {
                 try
                 {   //if input number is very large
@@ -53,6 +54,9 @@ namespace BankingSystem
                     {
                         checkChoice = true;
                     }
+                    //create accounNumbers.txt file before any operations
+                    StreamWriter sw = new StreamWriter("accountNumbers.txt", append: true);
+                    sw.Close();
                 }
                 catch (Exception e)
                 {

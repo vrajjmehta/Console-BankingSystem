@@ -220,7 +220,7 @@ namespace BankingSystem
                 mail.To.Add(accountData[4]);                              // TO EMAIL ADDRESS
                 mail.Subject = "Account Statement";                         //SUBJECT OF EMAIL
                 //CONTENTS OF EMAIL(BODY)
-                mail.Body = "Account Number: " + AccountNumber + "FirstName: " + accountData[0] + "\nLastName: " + accountData[1] + "\nAddress: " + accountData[2]
+                mail.Body = "Account Number: " + AccountNumber + "\nFirstName: " + accountData[0] + "\nLastName: " + accountData[1] + "\nAddress: " + accountData[2]
                             + "\nPhone Number: " + accountData[3] + "\nEmail :" + accountData[4] + "\nAccountBalance :$" + accountData[5]
                             + "\nLast 5 transactions are:\n" + emailStatement[0] + "\n" + emailStatement[1] + "\n" + emailStatement[2]
                             + "\n" + emailStatement[3] + "\n" + emailStatement[4];

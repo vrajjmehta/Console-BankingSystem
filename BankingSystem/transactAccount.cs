@@ -44,7 +44,7 @@ namespace BankingSystem
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine("\n\n"+e.Message);
                 Console.ReadKey();
             }
             checkAccountExists();

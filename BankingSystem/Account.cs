@@ -149,8 +149,6 @@ namespace BankingSystem
         public void checkAccountExists()
         {
             //IF THE SAME ACCOUNTNUMBER EXISTS, GET ANOTHER ACCOUNT NUMBER    
-            StreamWriter sw = new StreamWriter("accountNumbers.txt", append: true);
-            sw.Close();
             string[] accountNumbersData = File.ReadAllLines("accountNumbers.txt");
             foreach (string set in accountNumbersData)
             {
@@ -210,7 +208,7 @@ namespace BankingSystem
                 mail.To.Add(Email);                                         // TO EMAIL ADDRESS
                 mail.Subject = "Account Details";                           //SUBJECT OF EMAIL
                 //CONTENTS OF EMAIL(BODY)
-                mail.Body = "Account Number: " + AccountNumber + "FirstName: " + accountData[0] + "\nLastName: " + accountData[1] + "\nAddress: " + accountData[2] + "\nPhone Number: "
+                mail.Body = "Account Number: " + AccountNumber + "\nFirstName: " + accountData[0] + "\nLastName: " + accountData[1] + "\nAddress: " + accountData[2] + "\nPhone Number: "
                             + accountData[3] + "\nEmail :" + accountData[4] + "\nAccountBalance :$" + accountData[5];
 
                 SmtpServer.Port = 587;

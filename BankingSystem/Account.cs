@@ -135,7 +135,7 @@ namespace BankingSystem
             {    //  ACCOUNTNUMBER IS THE CURRENT DATETIME. 
                 do
                 {
-                    AccountNumber = Convert.ToInt64(DateTime.Now.ToString("ddHHmmss"));
+                    AccountNumber = Convert.ToInt32(DateTime.Now.ToString("ddHHmmss"));
                     checkAccountExists();
                 } while (foundAccount);
             }

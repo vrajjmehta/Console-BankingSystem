@@ -40,7 +40,15 @@ namespace BankingSystem
                 Console.WriteLine("\t\t╚══════════════════════════════════════════════════╝");
 
                 Console.SetCursorPosition(acNumberCursorLeft, acNumberCursorTop);
-                AccountNumber = Convert.ToInt64(Console.ReadLine());
+                string ac = Console.ReadLine();
+                if (ac.Length <= 10)
+                {
+                    AccountNumber = Convert.ToInt32(ac);
+                }
+                else
+                {
+                    Console.WriteLine("\n\nPlease enter account number not more than 10 characters.");
+                }
 
                 checkAccountExists();
             }

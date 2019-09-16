@@ -9,7 +9,7 @@ namespace BankingSystem
         public string Address { get; set; }
         public string Email { get; set; }
         public long PhoneNumber { get; set; }
-        public long AccountNumber { get; set; }
+        public int AccountNumber { get; set; }
         public long AccountBalance { get; set; } 
     }
 }

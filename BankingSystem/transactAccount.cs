@@ -40,7 +40,16 @@ namespace BankingSystem
             try
             {   //CHECK IF ACCOUNT NUMBER ENTERED IN CORRECT FORMAT
                 Console.SetCursorPosition(acNumberCursorLeft, acNumberCursorTop);
-                AccountNumber = Convert.ToInt64(Console.ReadLine());
+                string ac = Console.ReadLine();
+                if (ac.Length <= 10)
+                {
+                    AccountNumber = Convert.ToInt32(ac);
+                }
+                else
+                {
+                    Console.WriteLine("\n\nPlease enter account number not more than 10 characters.");
+                }
+
             }
             catch (Exception e)
             {

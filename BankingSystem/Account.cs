@@ -204,7 +204,7 @@ namespace BankingSystem
                 MailMessage mail = new MailMessage();
                 SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
-                mail.From = new MailAddress("vrajmehta1511@gmail.com");     //FROM EMAIL ADDRESS
+                mail.From = new MailAddress("#ID");     //FROM EMAIL ADDRESS
                 mail.To.Add(Email);                                         // TO EMAIL ADDRESS
                 mail.Subject = "Account Details";                           //SUBJECT OF EMAIL
                 //CONTENTS OF EMAIL(BODY)
@@ -212,7 +212,7 @@ namespace BankingSystem
                             + accountData[3] + "\nEmail :" + accountData[4] + "\nAccountBalance :$" + accountData[5];
 
                 SmtpServer.Port = 587;
-                SmtpServer.Credentials = new System.Net.NetworkCredential("vrajmehta1511", "Password0#");  //USERNAME & PASSWORD OF EMAIL ACCOUNT
+                SmtpServer.Credentials = new System.Net.NetworkCredential("#ID", "#Password");  //USERNAME & PASSWORD OF EMAIL ACCOUNT
                 SmtpServer.EnableSsl = true;
 
                 SmtpServer.Send(mail);
